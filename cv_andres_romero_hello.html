@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Andrés Romero — CV Programador Frontend & Full-Stack</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    :root {
+      --color-primary: #c2410c;       /* Naranja Óxido / Terracota Profundo Mochi OS */
+      --color-primary-dark: #7c2d12;  /* Naranja Oscuro */
+      --color-primary-light: #ffedd5; /* Tinte naranja sutil */
+      --color-text-dark: #0f172a;     /* Tinta principal */
+      --color-text-muted: #334155;    /* Texto secundario */
+      --color-text-light: #64748b;    /* Texto tenue */
+      --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: #0b0f19;
+      color: var(--color-text-dark);
+      padding: 24px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* BARRA SUPERIOR (Solo los 3 botones solicitados) */
+    .toolbar-actions {
+      display: flex;
+      gap: 12px;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(16px);
+      padding: 8px 16px;
+      border-radius: 9999px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      margin-bottom: 20px;
+      position: sticky;
+      top: 12px;
+      z-index: 100;
+    }
+
+    .btn-op {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-sans);
+      font-size: 0.84rem;
+      font-weight: 700;
+      padding: 8px 18px;
+      border-radius: 9999px;
+      cursor: pointer;
+      text-decoration: none;
+      border: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-op-print {
+      background: var(--color-primary);
+      color: #ffffff;
+    }
+
+    .btn-op-print:hover {
+      background: #ea580c;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 14px rgba(234, 88, 12, 0.4);
+    }
+
+    .btn-op-sec {
+      background: rgba(255, 255, 255, 0.08);
+      color: #f8fafc;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .btn-op-sec:hover {
+      background: rgba(255, 255, 255, 0.16);
+      transform: translateY(-2px);
+    }
+
+    /* CONTENEDOR CV (PLANTILLA EXACTA 1 PÁGINA A4) */
+    .cv-sheet {
+      width: 100%;
+      max-width: 820px;
+      background: #ffffff;
+      border-radius: 24px;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+      overflow: hidden;
+      min-height: 1050px;
+    }
+
+    /* COLUMNA IZQUIERDA (PÍLDORA SÓLIDA NARANJA) */
+    .sidebar-pill {
+      background: linear-gradient(180deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+      color: #ffffff;
+      padding: 32px 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-radius: 24px;
+      margin: 12px;
+    }
+
+    /* FOTO DE PERFIL CIRCULAR */
+    .profile-photo-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .profile-img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center 38%;
+      border: 4px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    /* SECCIONES DE LA BARRA LATERAL */
+    .sidebar-section {
+      margin-bottom: 18px;
+    }
+
+    .sidebar-title {
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #ffffff;
+      margin-bottom: 8px;
+      padding-bottom: 3px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
+    .contact-list {
+      list-style: none;
+      font-size: 0.76rem;
+      line-height: 1.5;
+    }
+
+    .contact-list li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+      word-break: break-word;
+    }
+
+    .contact-list a {
+      color: #ffffff;
+      text-decoration: none;
+    }
+
+    .contact-list i {
+      font-size: 0.8rem;
+      opacity: 0.9;
+      width: 14px;
+      text-align: center;
+    }
+
+    .profile-text {
+      font-size: 0.75rem;
+      line-height: 1.45;
+      color: rgba(255, 255, 255, 0.92);
+      text-align: justify;
+    }
+
+    .skills-list {
+      list-style: none;
+      font-size: 0.75rem;
+      line-height: 1.45;
+    }
+
+    .skills-list li {
+      position: relative;
+      padding-left: 10px;
+      margin-bottom: 3px;
+    }
+
+    .skills-list li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .sidebar-footer {
+      font-size: 0.7rem;
+      color: rgba(255, 255, 255, 0.8);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    /* COLUMNA DERECHA (CONTENIDO PRINCIPAL) */
+    .main-content {
+      padding: 38px 36px 32px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    /* HEADER NOMBRE Y CARGO */
+    .name-header {
+      margin-bottom: 24px;
+    }
+
+    .name-title {
+      font-size: 2.35rem;
+      font-weight: 800;
+      color: var(--color-primary-dark);
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+    }
+
+    .role-subtitle {
+      font-size: 1.05rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--color-primary);
+      margin-top: 6px;
+    }
+
+    /* SECCIONES DEL CONTENIDO */
+    .main-section {
+      margin-bottom: 20px;
+    }
+
+    .section-heading-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .icon-badge {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    .section-heading {
+      font-size: 0.88rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-primary-dark);
+    }
+
+    /* ENTRADAS DE EXPERIENCIA */
+    .entry-item {
+      margin-bottom: 12px;
+    }
+
+    .entry-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .entry-role {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--color-text-dark);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .entry-role::before {
+      content: '•';
+      color: var(--color-primary);
+      font-size: 1.1rem;
+      line-height: 1;
+    }
+
+    .entry-org {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--color-text-muted);
+      margin-left: 12px;
+    }
+
+    .entry-period {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--color-text-light);
+      margin-left: 12px;
+      margin-bottom: 4px;
+    }
+
+    .entry-bullets {
+      list-style: none;
+      font-size: 0.77rem;
+      color: var(--color-text-muted);
+      line-height: 1.42;
+      margin-left: 12px;
+      text-align: justify;
+    }
+
+    .entry-bullets li {
+      position: relative;
+      padding-left: 10px;
+      margin-bottom: 2px;
+    }
+
+    .entry-bullets li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--color-text-light);
+    }
+
+    /* EDUCACIÓN & CURSOS */
+    .edu-item {
+      margin-bottom: 10px;
+    }
+
+    .edu-title {
+      font-size: 0.84rem;
+      font-weight: 800;
+      color: var(--color-text-dark);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .edu-title::before {
+      content: '•';
+      color: var(--color-primary);
+      font-size: 1.1rem;
+    }
+
+    .edu-inst {
+      font-size: 0.77rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-left: 12px;
+    }
+
+    .edu-date {
+      font-size: 0.72rem;
+      color: var(--color-text-light);
+      margin-left: 12px;
+    }
+
+    /* TOAST */
+    .toast-box {
+      position: fixed;
+      bottom: 20px;
+      background: #0f172a;
+      color: #38bdf8;
+      padding: 8px 18px;
+      border-radius: 9999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      border: 1px solid rgba(255,255,255,0.2);
+      transform: translateY(100px);
+      transition: transform 0.25s ease;
+      z-index: 1000;
+    }
+    .toast-box.show { transform: translateY(0); }
+
+    /* REGLAS DE IMPRESIÓN (1 PÁGINA A4 EXACTA) */
+    @page {
+      size: A4 portrait;
+      margin: 0;
+    }
+
+    @media print {
+      body {
+        background: transparent !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+      .toolbar-actions, .toast-box {
+        display: none !important;
+      }
+      .cv-sheet {
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        max-width: 100% !important;
+        min-height: 100vh !important;
+      }
+      a {
+        text-decoration: none !important;
+        color: inherit !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BARRA SUPERIOR (4 BOTONES DE CONTACTO DIRECTO) -->
+  <nav class="toolbar-actions">
+    <a href="https://wa.me/593995670756?text=Hola%20Andr%C3%A9s,%20vi%20tu%20CV%20y%20me%20gustar%C3%ADa%20conversar%20sobre%20una%20oportunidad%20laboral." target="_blank" class="btn-op" style="background: #16a34a; color: #ffffff;">
+      <i class="fa-brands fa-whatsapp"></i> WhatsApp
+    </a>
+    <a href="mailto:andres.rrc14@gmail.com?subject=Oportunidad%20Laboral%20-%20Andr%C3%A9s%20Romero" class="btn-op" style="background: var(--color-primary); color: #ffffff;">
+      <i class="fa-solid fa-envelope"></i> Enviar Correo
+    </a>
+    <a href="tel:0995670756" class="btn-op btn-op-sec">
+      <i class="fa-solid fa-phone"></i> Llamar (099-56-70-756)
+    </a>
+    <a href="https://github.com/arrc14" target="_blank" class="btn-op btn-op-sec">
+      <i class="fa-brands fa-github"></i> Portafolio GitHub
+    </a>
+  </nav>
+
+  <!-- CONTENEDOR PRINCIPAL CV ESTILO PLANTILLA -->
+  <main class="cv-sheet">
+
+    <!-- COLUMNA IZQUIERDA (PÍLDORA SÓLIDA NARANJA) -->
+    <aside class="sidebar-pill">
+      <div>
+        <!-- Foto de Perfil -->
+        <div class="profile-photo-wrap">
+          <img src="assets/img/perfil.jpeg" alt="Andrés Romero" class="profile-img" />
+        </div>
+
+        <!-- CONTACTO -->
+        <div class="sidebar-section">
+          <h2 class="sidebar-title">Contacto</h2>
+          <ul class="contact-list">
+            <li><i class="fa-solid fa-phone"></i> 099-56-70-756</li>
+            <li><i class="fa-solid fa-envelope"></i> andres.rrc14@gmail.com</li>
+            <li><i class="fa-solid fa-location-dot"></i> Quito, Ecuador</li>
+            <li><i class="fa-brands fa-github"></i> github.com/arrc14</li>
+          </ul>
+        </div>
+
+        <!-- PERFIL (Quién soy, qué hago, cómo lo hago) -->
+        <div class="sidebar-section">
+          <h2 class="sidebar-title">Perfil</h2>
+          <p class="profile-text">
+            Desarrollador graduado de la PUCE especializado en frontend interactivo y UI/UX con Next.js, TypeScript y Tailwind CSS. Implemento estándares de gobernanza y arquitectura limpia (ARRC 2.0) para garantizar entregas ágiles y código sin deuda técnica.
+          </p>
+        </div>
+
+        <!-- HABILIDADES -->
+        <div class="sidebar-section">
+          <h2 class="sidebar-title">Habilidades</h2>
+          <ul class="skills-list">
+            <li>TypeScript & JavaScript (ES6+)</li>
+            <li>Next.js & React.js</li>
+            <li>Tailwind CSS & MediaQueries</li>
+            <li>Animaciones GSAP</li>
+            <li>Diseño UI/UX</li>
+            <li>APIs REST & Git / GitHub</li>
+          </ul>
+        </div>
+
+        <!-- IDIOMAS -->
+        <div class="sidebar-section">
+          <h2 class="sidebar-title">Idiomas</h2>
+          <ul class="skills-list">
+            <li>Español nativo</li>
+            <li>Inglés técnico profesional</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="sidebar-footer">
+        <i class="fa-solid fa-circle-check"></i>
+        <span>Disponibilidad inmediata (Quito)</span>
+      </div>
+    </aside>
+
+    <!-- COLUMNA DERECHA (CONTENIDO PRINCIPAL) -->
+    <section class="main-content">
+
+      <!-- NOMBRE Y CARGO -->
+      <header class="name-header">
+        <h1 class="name-title">Andrés<br>Romero</h1>
+        <div class="role-subtitle">Programador Frontend & Full-Stack</div>
+      </header>
+
+      <!-- EXPERIENCIA -->
+      <div class="main-section">
+        <div class="section-heading-wrap">
+          <div class="icon-badge"><i class="fa-solid fa-briefcase"></i></div>
+          <h2 class="section-heading">Experiencia</h2>
+        </div>
+
+        <!-- KioskoApp -->
+        <article class="entry-item">
+          <div class="entry-role">Desarrollador Frontend & Full-Stack</div>
+          <div class="entry-org">KioskoApp · Proyecto AI-First & Clean Architecture</div>
+          <div class="entry-period">Noviembre 2025 - Actualidad</div>
+          <ul class="entry-bullets">
+            <li>Desarrollo de interfaces reactivas y componentes responsivos con <strong>Next.js, TypeScript y Tailwind CSS</strong>.</li>
+            <li>Integración de animaciones fluidas con <strong>GSAP</strong> y optimización adaptativa mediante <strong>MediaQueries</strong>.</li>
+            <li>Consumo de APIs REST escalables con validación estricta y manejo global de excepciones.</li>
+          </ul>
+        </article>
+
+        <!-- Plataforma Web PUCE -->
+        <article class="entry-item">
+          <div class="entry-role">Desarrollador Web Full-Stack</div>
+          <div class="entry-org">Plataforma Web Institucional · PUCE</div>
+          <div class="entry-period">Enero 2025 - Octubre 2025</div>
+          <ul class="entry-bullets">
+            <li>Diseño UI/UX y maquetación web con <strong>React, JavaScript ES6+, HTML5 semántico y CSS3</strong>.</li>
+            <li>Administración y normalización de bases de datos relacionales MySQL.</li>
+          </ul>
+        </article>
+
+        <!-- Metodología Templates Core -->
+        <article class="entry-item">
+          <div class="entry-role">Autor & Diseñador de Framework</div>
+          <div class="entry-org">Templates Core (ARRC 2.0) · Spec-Driven Development</div>
+          <div class="entry-period">2025 - 2026</div>
+          <ul class="entry-bullets">
+            <li>Creación de marco metodológico de desarrollo para acelerar ciclos de entrega con cero deuda técnica.</li>
+          </ul>
+        </article>
+      </div>
+
+      <!-- EDUCACIÓN -->
+      <div class="main-section">
+        <div class="section-heading-wrap">
+          <div class="icon-badge"><i class="fa-solid fa-graduation-cap"></i></div>
+          <h2 class="section-heading">Educación</h2>
+        </div>
+
+        <div class="edu-item">
+          <div class="edu-title">Tecnólogo Superior en Desarrollo de Software</div>
+          <div class="edu-inst">Pontificia Universidad Católica del Ecuador (PUCE)</div>
+          <div class="edu-date">Graduado en Agosto 2026 · Quito, Ecuador</div>
+        </div>
+      </div>
+
+      <!-- CURSOS & CERTIFICACIONES -->
+      <div class="main-section" style="margin-bottom: 0;">
+        <div class="section-heading-wrap">
+          <div class="icon-badge"><i class="fa-solid fa-certificate"></i></div>
+          <h2 class="section-heading">Cursos</h2>
+        </div>
+
+        <div class="edu-item">
+          <div class="edu-title">Reparación de Hardware y Teléfonos Celulares (40 Horas)</div>
+          <div class="edu-inst">Solari / SETEC (Cód: SETEC-CAL-2018-013) · 2019</div>
+        </div>
+
+        <div class="edu-item">
+          <div class="edu-title">Impresión 3D y Prototipado Práctico (12 Horas)</div>
+          <div class="edu-inst">SITIOCAPA Academy / 3DTRONIX · 2022</div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <div id="toast" class="toast-box">¡Correo copiado: andres.rrc14@gmail.com!</div>
+
+  <script>
+    function copyEmail() {
+      navigator.clipboard.writeText('andres.rrc14@gmail.com').then(() => {
+        const toast = document.getElementById('toast');
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2500);
+      });
+    }
+  </script>
+</body>
+</html>
